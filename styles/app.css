@@ -59,7 +59,7 @@ body {
 }
 
 :focus {
-  outline-color: var(--color-afternoon-blue);
+  outline-color: var(--color-morning-pink);
 }
 
 @media (prefers-reduced-motion: no-preference) {

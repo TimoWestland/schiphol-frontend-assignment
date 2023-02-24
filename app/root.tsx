@@ -9,6 +9,7 @@ import {
   ScrollRestoration,
 } from '@remix-run/react'
 
+import { Navbar } from '~/components/navbar'
 import appStyles from '~/styles/app.css'
 import tailwindStyles from '~/styles/tailwind.css'
 
@@ -55,6 +56,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Navbar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

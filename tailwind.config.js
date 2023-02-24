@@ -61,10 +61,10 @@ module.exports = {
         sans: ['Neue Frutiger', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
-        '7xl': '75rem', // 1200px
+        '7xl': '60rem', // container width (960px)
       },
       spacing: {
-        '10vw': '10vw', // page margin
+        '8vw': '8vw', // page margin
       },
       backgroundImage: {
         'gradient-flights': 'var(--gradient-flights)',
