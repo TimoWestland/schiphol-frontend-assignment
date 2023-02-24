@@ -1,0 +1,36 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+
+@tailwind utilities;
+@tailwind screens;
+
+/* tailwind is configured to prefer this font */
+@font-face {
+  font-family: 'Neue Frutiger';
+  src: url('/fonts/Neue-Frutiger-Regular.woff2') format('woff2'),
+  url('/fonts/Neue-Frutiger-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Frutiger';
+  src: url('/fonts/Neue-Frutiger-Medium.woff2') format('woff2'),
+    url('/fonts/Neue-Frutiger-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Frutiger';
+  src: url('/fonts/Neue-Frutiger-Bold.woff2') format('woff2'),
+    url('/fonts/Neue-Frutiger-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
