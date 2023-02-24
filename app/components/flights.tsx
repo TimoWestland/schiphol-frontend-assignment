@@ -2,9 +2,12 @@ import * as React from 'react'
 
 import { Link } from '@remix-run/react'
 
+import clsx from 'clsx'
+
 import { Flight } from '../../types'
 import { Card } from '~/components/card'
 import { Grid } from '~/components/grid'
+import { IconArrowRight } from '~/components/icons'
 
 function DelayedBadge() {
   return (
@@ -32,29 +35,52 @@ function FlightListItem({
   const isDelayed = expectedTime !== originalTime
 
   return (
-    <Card as="li" className="mb-6 last:mb-0">
-      <Link to={url} className="group block p-8 text-blue-schiphol">
+    <Card as="li" className="mb-4 last:mb-0">
+      <Link
+        to={url}
+        prefetch="intent"
+        className="group block px-6 py-4 text-blue-schiphol lg:py-6"
+      >
         <Grid nested>
-          <div className="col-span-full border-b border-gray-scattered pb-2 lg:col-span-3 lg:border-r lg:border-b-0 lg:pb-0">
+          <div
+            className={clsx(
+              'col-span-full border-b border-dashed border-gray-overcast py-2',
+              'lg:col-span-3 lg:border-r lg:border-b-0',
+            )}
+          >
             {isDelayed ? (
               <div className="flex items-center gap-x-3">
-                <span className="line-through">{originalTime}</span>
-                <strong>{expectedTime}</strong>
-                <DelayedBadge />
+                <strong className="line-through">{originalTime}</strong>
+                <strong className="text-red">{expectedTime}</strong>
               </div>
             ) : (
               <strong>{originalTime}</strong>
             )}
           </div>
-          <div className="col-span-full border-b border-gray-scattered py-2 lg:col-span-6 lg:border-r lg:border-b-0 lg:py-0">
-            <strong className="group-hover:underline group-focus:underline">
+          <div
+            className={clsx(
+              'col-span-full border-b border-dashed border-gray-overcast py-2',
+              'lg:col-span-3 lg:border-r lg:border-b-0',
+            )}
+          >
+            <strong className="block group-hover:underline group-focus:underline">
               {airport}
             </strong>
-          </div>
-          <div className="col-span-full pt-2 lg:col-span-3 lg:pt-0">
             <span className="group-hover:underline group-focus:underline">
               {flightNumber}
             </span>
+          </div>
+          <div className="col-span-full py-2 lg:col-span-3">
+            {isDelayed ? <DelayedBadge /> : <span>On schedule</span>}
+          </div>
+          <div className="col-span-full py-2 text-right lg:col-span-3">
+            <Link
+              to={url}
+              className="inline-flex items-center gap-x-2 text-blue-afternoon"
+            >
+              Details
+              <IconArrowRight />
+            </Link>
           </div>
         </Grid>
       </Link>
@@ -64,12 +90,10 @@ function FlightListItem({
 
 export function FlightList({ flights }: { flights: Flight[] }) {
   return (
-    <Grid>
-      <ul className="col-span-full">
-        {flights.map((flight) => (
-          <FlightListItem key={flight.flightIdentifier} {...flight} />
-        ))}
-      </ul>
-    </Grid>
+    <ul className="col-span-full">
+      {flights.map((flight) => (
+        <FlightListItem key={flight.flightIdentifier} {...flight} />
+      ))}
+    </ul>
   )
 }

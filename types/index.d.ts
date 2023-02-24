@@ -7,3 +7,5 @@ export type Flight = {
   url: string
   score: string
 }
+
+export type SortDirection = 'ascending' | 'descending'

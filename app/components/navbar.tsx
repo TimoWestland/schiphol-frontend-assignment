@@ -20,10 +20,10 @@ function Logo() {
 export function Navbar() {
   return (
     <nav className="border-b border-gray-scattered">
-      <div className="mx-8vw py-8">
+      <div className="mx-8vw py-6 lg:py-8">
         <div className="mx-auto flex max-w-5xl flex-col lg:flex-row lg:items-center lg:justify-between">
           <Logo />
-          <div className="mt-6 text-sm lg:mt-0">
+          <div className="mt-4 text-sm lg:mt-0">
             This is not an official Schiphol site. Please visit{' '}
             <a
               href="https://schiphol.nl/"
