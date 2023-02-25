@@ -35,7 +35,7 @@ function FlightListItem({
   const isDelayed = expectedTime !== originalTime
 
   return (
-    <Card as="li" className="mb-4 last:mb-0">
+    <Card as="li" className="mb-2 last:mb-0">
       <Link
         to={url}
         prefetch="intent"
@@ -74,13 +74,10 @@ function FlightListItem({
             {isDelayed ? <DelayedBadge /> : <span>On schedule</span>}
           </div>
           <div className="col-span-full py-2 text-right lg:col-span-3">
-            <Link
-              to={url}
-              className="inline-flex items-center gap-x-2 text-blue-afternoon"
-            >
+            <span className="inline-flex items-center gap-x-2 text-blue-afternoon">
               Details
               <IconArrowRight />
-            </Link>
+            </span>
           </div>
         </Grid>
       </Link>
@@ -90,7 +87,7 @@ function FlightListItem({
 
 export function FlightList({ flights }: { flights: Flight[] }) {
   return (
-    <ul className="col-span-full">
+    <ul>
       {flights.map((flight) => (
         <FlightListItem key={flight.flightIdentifier} {...flight} />
       ))}

@@ -58,6 +58,11 @@ body {
   pointer-events: none;
 }
 
+/* For iOS Safari */
+input[type='search'] {
+  -webkit-appearance: none;
+}
+
 :focus {
   outline-color: var(--color-morning-pink);
 }

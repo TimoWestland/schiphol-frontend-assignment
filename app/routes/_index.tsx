@@ -15,15 +15,8 @@ import { sortFlightsByTime } from '~/utils/sort'
 export async function loader() {
   const flights = await getFlights()
 
-  // Sort flights by expected departure time by default as it's the default option in the select input
-  const sortedFlights = (flights || []).sort((a, b) =>
-    sortFlightsByTime(a, b, 'descending'),
-  )
-
   return json(
-    {
-      flights: sortedFlights,
-    },
+    { flights: flights ?? [] },
     {
       headers: {
         'Cache-Control': 'private, max-age=3600',
@@ -45,20 +38,20 @@ type ActionData = {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const requestText = await request.text()
-  const form = new URLSearchParams(requestText)
+  const form = await request.formData()
   const query = form.get('query')
   const sortDirection =
     (form.get('sortDirection') as SortDirection) ?? 'ascending'
 
   let actionData: ActionData = {
     status: 'success',
-    fields: { query },
+    // Form fields can also be of type File, so we need to check if it's a  string to satisfy TS here.
+    fields: { query: typeof query === 'string' ? query : '' },
     errors: {},
   }
 
   try {
-    // Validate the input. Return an invalid request response (400) if it's not correct.
+    // Validate the input and return an invalid request response (400) if it's not valid.
     if (typeof query !== 'string' || query.length < 3) {
       actionData.status = 'error'
       actionData.errors = {
@@ -67,16 +60,16 @@ export const action: ActionFunction = async ({ request }) => {
       }
       return json(actionData, 400)
     }
+
     const flights = await searchFlights(query)
-    actionData.flights = (flights || []).sort((a, b) =>
-      sortFlightsByTime(a, b, sortDirection),
-    )
-    actionData.flights = flights
+    actionData.flights = (flights || [])
+      .sort((a, b) => sortFlightsByTime(a, b, sortDirection))
+      .slice(0, 5) // Limit to 5 results
+
     return json(actionData, 200)
   } catch (error: unknown) {
     actionData.status = 'error'
-    actionData.errors.generalError =
-      'Oops! Something went wrong searching for your flights.'
+    actionData.errors.generalError = 'Sorry, something went wrong!'
     return json(actionData, 500)
   }
 }
@@ -95,7 +88,7 @@ export default function Index() {
       ? flightsFetcher.data?.flights
       : data.flights
 
-  // We could add a loader when flightsFetcher.state = submitting, but since
+  // We could add a loader when flightsFetcher.state === 'submitting', but since
   // the data is local it will be practically invisible
   return (
     <main>
@@ -119,20 +112,30 @@ export default function Index() {
         </HeaderSection>
         <div className="min-h-[70vh] bg-blue-light py-10 lg:py-16">
           <Grid>
-            {flights?.length === 0 ? (
-              <p className="col-span-full text-3xl font-medium">
-                No flights found{' '}
-                {flightsFetcher.data?.status === 'success'
-                  ? ` for "${flightsFetcher.data?.fields.query}"`
-                  : ''}
-              </p>
-            ) : (
-              <FlightList
-                flights={flights.sort((a, b) =>
-                  sortFlightsByTime(a, b, sortDirection),
-                )}
-              />
-            )}
+            <div className="col-span-full">
+              {flights.length === 0 ? (
+                <p className="text-3xl font-medium">
+                  No flights found{' '}
+                  {flightsFetcher.data?.status === 'success'
+                    ? ` for "${flightsFetcher.data?.fields.query}"`
+                    : ''}
+                </p>
+              ) : (
+                <>
+                  {flightsFetcher.data?.fields.query ? (
+                    <span className="mb-8 block text-3xl font-bold text-gray-storm">
+                      {flights.length} flights found for "
+                      {flightsFetcher.data?.fields.query}"
+                    </span>
+                  ) : null}
+                  <FlightList
+                    flights={flights.sort((a, b) =>
+                      sortFlightsByTime(a, b, sortDirection),
+                    )}
+                  />
+                </>
+              )}
+            </div>
             {flightsFetcher.data?.status === 'error' &&
             flightsFetcher.data?.errors.generalError ? (
               <ErrorPanel className="col-span-full lg:col-span-7">

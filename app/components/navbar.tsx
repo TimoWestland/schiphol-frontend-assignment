@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Link } from '@remix-run/react'
+
 function Logo() {
   return (
     <svg
@@ -22,12 +24,14 @@ export function Navbar() {
     <nav className="border-b border-gray-scattered">
       <div className="mx-8vw py-6 lg:py-8">
         <div className="mx-auto flex max-w-5xl flex-col lg:flex-row lg:items-center lg:justify-between">
-          <Logo />
+          <Link to="/" prefetch="intent">
+            <Logo />
+          </Link>
           <div className="mt-4 text-sm lg:mt-0">
             This is not an official Schiphol site. Please visit{' '}
             <a
               href="https://schiphol.nl/"
-              className="font-medium text-blue-afternoon underline"
+              className="font-bold text-blue-afternoon underline"
             >
               schiphol.nl
             </a>

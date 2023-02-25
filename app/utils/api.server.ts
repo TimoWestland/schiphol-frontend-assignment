@@ -15,7 +15,9 @@ async function mockFetch(url: string, options: any) {
   const query = searchParams.get('query')
 
   if (query && query.length > 2) {
-    return data.flights.filter((flight) => flight.airport.includes(query))
+    return data.flights.filter((flight) =>
+      flight.airport.toLowerCase().includes(query.toLowerCase()),
+    )
   }
 
   return data.flights

@@ -19,9 +19,9 @@ export function Label({
 type InputProps = JSX.IntrinsicElements['input']
 
 export const inputClassName = clsx(
-  'py-3 px-5 w-full border border-gray-broken border-b-gray-overcast shadow',
+  'py-3 px-5 w-full border rounded-none border-gray-broken border-b-gray-overcast shadow',
   'focus:border-b-blue-afternoon focus:shadow-xl focus:outline-none transition',
-  'placeholder-gray-400 text-primary disabled:text-gray-400 text-lg',
+  'bg-white placeholder-gray-400 disabled:text-gray-400 text-lg',
 )
 
 export function Input({ className, ...rest }: InputProps) {

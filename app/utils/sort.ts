@@ -1,7 +1,8 @@
 import { Flight, SortDirection } from '../../types'
 
 function timeToDate(timestamp: string) {
-  const now = new Date() // Just use today as the actual day doesn't matter in this use case
+  // Use today as the actual day/month doesn't matter in this use case.
+  const now = new Date()
   const [hours, minutes] = timestamp.split(':')
 
   now.setHours(Number(hours))
