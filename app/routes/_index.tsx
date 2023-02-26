@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { ActionFunction, json } from '@remix-run/node'
+import { ActionFunction, json, MetaFunction } from '@remix-run/node'
 import { useFetcher, useLoaderData } from '@remix-run/react'
 
 import { Flight, SortDirection } from '../../types'
@@ -23,6 +23,13 @@ export async function loader() {
       },
     },
   )
+}
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Schiphol assignment',
+    description: 'Find your flight',
+  }
 }
 
 type ActionData = {

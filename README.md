@@ -43,8 +43,9 @@ If you get an error about missing modules you might need to run
 
 ## PM2
 
-I used PM2 to run some tasks in parallel as we need to compile both remix and tailwind on changes. It's very
-similar to npm-run-parallel, but uses a config file to describe the tasks to run and has a bit nicer CLI output IMO.
+I used PM2 to run some tasks in parallel as we need to compile both remix and
+tailwind on changes. It's very similar to npm-run-parallel, but uses a config
+file to describe the tasks to run and has a bit nicer CLI output IMO.
 
 ## Deployment
 
@@ -62,6 +63,7 @@ deployed. The app can be viewed here: https://assignment.fly.dev
 - I added some basic routing to the app as the cards looked very clickable and
   the flights.json items contained a URL property.
 - Also added a way to display delayed flights to show some more React stuff.
+- The app is fully responsive, so feel free to check it on smaller screens.
 
 ## If this was a real project
 
