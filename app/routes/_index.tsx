@@ -62,9 +62,10 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     const flights = await searchFlights(query)
-    actionData.flights = (flights || [])
-      .sort((a, b) => sortFlightsByTime(a, b, sortDirection))
-      .slice(0, 5) // Limit to 5 results
+    actionData.flights = sortFlightsByTime(flights ?? [], sortDirection).slice(
+      0,
+      5,
+    ) // Limit to 5 results
 
     return json(actionData, 200)
   } catch (error: unknown) {
@@ -129,9 +130,7 @@ export default function Index() {
                     </span>
                   ) : null}
                   <FlightList
-                    flights={flights.sort((a, b) =>
-                      sortFlightsByTime(a, b, sortDirection),
-                    )}
+                    flights={sortFlightsByTime(flights, sortDirection)}
                   />
                 </>
               )}
