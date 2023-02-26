@@ -45,7 +45,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   let actionData: ActionData = {
     status: 'success',
-    // Form fields can also be of type File, so we need to check if it's a  string to satisfy TS here.
+    // Form fields can also be of type File, so we need to check if it's a string to satisfy TS here.
     fields: { query: typeof query === 'string' ? query : '' },
     errors: {},
   }
@@ -65,7 +65,7 @@ export const action: ActionFunction = async ({ request }) => {
     actionData.flights = sortFlightsByTime(flights ?? [], sortDirection).slice(
       0,
       5,
-    ) // Limit to 5 results
+    ) // Limit to 5 results.
 
     return json(actionData, 200)
   } catch (error: unknown) {
@@ -83,14 +83,14 @@ export default function Index() {
     React.useState<SortDirection>('ascending')
 
   // Grab the flights returned from the form submit action if they are available
-  // if not, default to the full list of flights from the loader
+  // if not, default to the full list of flights from the loader.
   const flights =
     flightsFetcher.data?.status === 'success' && flightsFetcher.data?.flights
       ? flightsFetcher.data?.flights
       : data.flights
 
   // We could add a loader when flightsFetcher.state === 'submitting', but since
-  // the data is local it will be practically invisible
+  // the data is local it will be practically invisible.
   return (
     <main>
       <flightsFetcher.Form method="post" aria-describedby="form-error">
@@ -98,8 +98,8 @@ export default function Index() {
           <div className="flex flex-col justify-between gap-4 lg:flex-row">
             <Select
               className="w-full max-w-xs"
-              label="Sort flights by departure time"
               name="sortDirection"
+              label="Sort flights by departure time"
               defaultValue={sortDirection}
               onChange={(event) =>
                 setSortDirection(event.target.value as SortDirection)
@@ -137,7 +137,10 @@ export default function Index() {
             </div>
             {flightsFetcher.data?.status === 'error' &&
             flightsFetcher.data?.errors.generalError ? (
-              <ErrorPanel className="col-span-full lg:col-span-7">
+              <ErrorPanel
+                id="form-error"
+                className="col-span-full lg:col-span-7"
+              >
                 {flightsFetcher.data.errors.generalError}
               </ErrorPanel>
             ) : null}

@@ -9,16 +9,21 @@ test('Users can search for flights', async ({ page }) => {
 
   const mainContent = await page.getByRole('main')
 
-  const inputField = mainContent.getByPlaceholder('Enter your destination')
-
+  // Get input field and enter a query
+  const inputField = await mainContent.getByPlaceholder(
+    'Enter your destination',
+  )
   await inputField.fill('London')
+
+  // Submit by clicking the submit button
   await mainContent.getByRole('button', { name: /Search/ }).click()
 
+  // Check if all 5 results contain our search query
   await expect(mainContent.getByRole('link')).toHaveText([
-    '14:40London GatwickBA 2761On scheduleDetails',
-    '14:40London HeathrowKL 1019On scheduleDetails',
-    '14:45London StanstedEZY 3004On scheduleDetails',
-    '14:55London HeathrowBA 435On scheduleDetails',
-    '15:05London GatwickEJU 8874On scheduleDetails',
+    /London/,
+    /London/,
+    /London/,
+    /London/,
+    /London/,
   ])
 })

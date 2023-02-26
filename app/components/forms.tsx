@@ -126,9 +126,7 @@ export function Field({
   )
 }
 
-type SelectProps = React.PropsWithRef<
-  JSX.IntrinsicElements['select'] & FieldProps
->
+type SelectProps = JSX.IntrinsicElements['select'] & FieldProps
 
 export function Select({
   className,
@@ -164,13 +162,19 @@ export function Select({
 
 export function ErrorPanel({
   children,
+  id,
   className,
 }: {
   children: React.ReactNode
+  id?: string
   className?: string
 }) {
   return (
-    <div role="alert" className={clsx('relative mt-8 px-10 py-8', className)}>
+    <div
+      role="alert"
+      className={clsx('relative mt-8 px-10 py-8', className)}
+      id={id}
+    >
       <div className="absolute inset-0 bg-red opacity-50" />
       <div className="relative text-lg font-medium text-white">{children}</div>
     </div>
