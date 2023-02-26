@@ -8,7 +8,9 @@
     "start": "remix-serve build",
     "typecheck": "tsc -b",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "npx playwright install chromium --with-deps"
   },
   "dependencies": {
     "@remix-run/node": "^1.13.0",
@@ -20,6 +22,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.1",
     "@remix-run/dev": "^1.13.0",
     "@remix-run/eslint-config": "^1.13.0",
     "@testing-library/jest-dom": "^5.16.5",

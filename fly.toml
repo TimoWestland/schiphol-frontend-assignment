@@ -1,5 +1,3 @@
-# fly.toml file generated for assignment on 2023-02-24T22:04:20+01:00
-
 app = "assignment"
 kill_signal = "SIGINT"
 kill_timeout = 5

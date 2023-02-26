@@ -13,9 +13,9 @@ module.exports = {
     '^.+\\.jsx?$': 'esbuild-jest',
   },
   setupFilesAfterEnv: ['@testing-library/jest-dom'],
-  moduleDirectories: ['node_modules', fromRoot('tests')],
+  moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
   moduleNameMapper: {
     '~/(.*)': fromRoot('app/$1'),
-  }
+  },
 }

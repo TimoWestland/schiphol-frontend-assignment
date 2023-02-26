@@ -24,6 +24,7 @@ export function Searchbar({ error }: { error?: string | null }) {
         )}
         type="submit"
       >
+        <span className="sr-only">Search</span>
         <IconSearch />
       </button>
     </div>
